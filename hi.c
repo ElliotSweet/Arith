@@ -2,37 +2,32 @@
 #include <math.h>
 #include "arith.h"
 
-
-typedef struct {
-	union { 
-		struct { float x, y, z, w };
-		float elm[4];
-	};
-} Quaternion;
+void PrintVector4(Vector4 v) { printf("[%.1f, %.1f, %.1f, %.1f]\n", v.x, v.y, v.z, v.w); }
 
 void PrintMatrix4x4(Matrix4x4 m1)
 {
-	printf("[%.1f, %.1f, %.1f, %.1f]\n", m1.elm[0],  m1.elm[1],  m1.elm[2],  m1.elm[3]);
-	printf("[%.1f, %.1f, %.1f, %.1f]\n", m1.elm[4],  m1.elm[5],  m1.elm[6],  m1.elm[7]);
-	printf("[%.1f, %.1f, %.1f, %.1f]\n", m1.elm[8],  m1.elm[9],  m1.elm[10], m1.elm[11]);
-	printf("[%.1f, %.1f, %.1f, %.1f]\n", m1.elm[12], m1.elm[13], m1.elm[14], m1.elm[15]);
+	PrintVector4(m1.vec[0]);
+	PrintVector4(m1.vec[1]);
+	PrintVector4(m1.vec[2]);
+	PrintVector4(m1.vec[3]);
 }
+
 
 int main(const int argc, const char **argv)
 {
 	Matrix4x4 m1, m2;
 
-	m1.vec[0] = Vector4Init(1, 3, 3, 4);
-	m1.vec[1] = Vector4Init(5, 6, 8, 8);
-	m1.vec[2] = Vector4Init(9, 6, 1, 9);
-	m1.vec[3] = Vector4Init(2, 4, 5, 6);
+	m1.vec[0] = Vector4Init(1, 2, 3, 4);
+	m1.vec[1] = Vector4Init(5, 6, 7, 8);
+	m1.vec[2] = Vector4Init(9, 1, 2, 3);
+	m1.vec[3] = Vector4Init(4, 5, 6, 7);
 
 	m2 = m1;
 
-	Matrix4x4 m3 = Matrix4x4Mul(m1, m2);
+	Matrix4x4 m3 = Matrix4x4Transpose(m1);
 
-	PrintMatrix4x4(m1); puts("\n\n");
-	PrintMatrix4x4(m2); puts("\n\n");
+	PrintMatrix4x4(m1); puts("\n");
+	PrintMatrix4x4(m2); puts("\n");
 	PrintMatrix4x4(m3);
 
 	return 0;

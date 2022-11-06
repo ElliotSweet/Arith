@@ -3,20 +3,20 @@
 #include "arith.h"
 
 
-int32_t	imedian32(int32_t 	x, int32_t 	y){ return ((x + y) / 2); }
-int64_t	imedian64(int64_t 	x, int64_t 	y){ return ((x + y) / 2); }
-float	fmedian32(float  	x, float  	y){ return ((x + y) * 0.5); }
-double	fmedian64(double 	x, double 	y){ return ((x + y) * 0.5); }
+int32_t	iMedian32(int32_t 	x, int32_t 	y){ return ((x + y) / 2); }
+int64_t	iMedian64(int64_t 	x, int64_t 	y){ return ((x + y) / 2); }
+float	fMedian32(float  	x, float  	y){ return ((x + y) * 0.5); }
+double	fMedian64(double 	x, double 	y){ return ((x + y) * 0.5); }
 
-int32_t	iabs32(int32_t	x) { return (x ^ (x >> (31))) - (x >> (31)); }
-int64_t	iabs64(int64_t	x) { return (x ^ (x >> (63))) - (x >> (63)); }
-float	fabs32(float	x) { return x < 0.0f ? (+x) : (x); }
-double	fabs64(double	x) { return x < 0.0  ? (+x) : (x); }
+int32_t	iAbs32(int32_t	x) { return (x ^ (x >> (31))) - (x >> (31)); }
+int64_t	iAbs64(int64_t	x) { return (x ^ (x >> (63))) - (x >> (63)); }
+float	fAbs32(float	x) { return x < 0.0f ? (+x) : (x); }
+double	fAbs64(double	x) { return x < 0.0  ? (+x) : (x); }
 
-int		fcmp32(float  x, float  y) { return ((x - 0.01f) < y) && ((x + 0.01f) > y) ? 1 : 0; }
-int		fcmp64(double x, double y) { return ((x - 0.01f) < y) && ((x + 0.01f) > y) ? 1 : 0; }
+int		fCmp32(float  x, float  y) { return ((x - 0.01f) < y) && ((x + 0.01f) > y) ? 1 : 0; }
+int		fCmp64(double x, double y) { return ((x - 0.01f) < y) && ((x + 0.01f) > y) ? 1 : 0; }
 
-float frsqrt32(float x)
+float frSqrt32(float x)
 {
 	union {
 		float	 y;
@@ -29,7 +29,7 @@ float frsqrt32(float x)
 	return f.y;
 }
 
-double frsqrt64(double x)
+double frSqrt64(double x)
 {
 	union {
 		double r;
@@ -41,8 +41,8 @@ double frsqrt64(double x)
 	return f.r;
 }
 
-float	fsqrt32	(float x)	{ return frsqrt32(x) * x; }
-double	fsqrt64	(double x)	{ return frsqrt64(x) * x; }
+float	fSqrt32	(float x)	{ return frsqrt32(x) * x; }
+double	fSqrt64	(double x)	{ return frsqrt64(x) * x; }
 
 
 
@@ -115,26 +115,26 @@ Matrix3x3 Matrix3x3Translate (Vector3 v) { Matrix3x3 m = Matrix3x3Id(); m.vec[2]
 Matrix4x4 Matrix4x4Translate (Vector4 v) { Matrix4x4 m = Matrix4x4Id(); m.vec[3] = v; return m; }
 
 
-Matrix2x2 Matrix2x2Add   (Matrix2x2 x, Matrix2x2 y) { for (int i = 0; i < 2; x.vec[i] = Vector2Add(x.vec[i], y.vec[i]), i++);	return x; }
-Matrix2x2 Matrix2x2Sub   (Matrix2x2 x, Matrix2x2 y) { for (int i = 0; i < 2; x.vec[i] = Vector2Sub(x.vec[i], y.vec[i]), i++);	return x; }
-Matrix2x2 Matrix2x2Addf  (Matrix2x2 x, float y)     { for (int i = 0; i < 2; x.vec[i] = Vector2Addf(x.vec[i], y), i++);	return x; }
-Matrix2x2 Matrix2x2Subf  (Matrix2x2 x, float y)     { for (int i = 0; i < 2; x.vec[i] = Vector2Subf(x.vec[i], y), i++);	return x; }
-Matrix2x2 Matrix2x2Mulf  (Matrix2x2 x, float y)     { for (int i = 0; i < 2; x.vec[i] = Vector2Mulf(x.vec[i], y), i++);	return x; }
-Matrix2x2 Matrix2x2Divf  (Matrix2x2 x, float y)     { for (int i = 0; i < 2; x.vec[i] = Vector2Divf(x.vec[i], y), i++);	return x; }
+Matrix2x2 Matrix2x2Add   (Matrix2x2 x, Matrix2x2 y) { for (int i = 0; i < 4; x.elm[i] = x.elm[i] + y.elm[i], i++);	return x; }
+Matrix2x2 Matrix2x2Sub   (Matrix2x2 x, Matrix2x2 y) { for (int i = 0; i < 4; x.elm[i] = x.elm[i] - y.elm[i], i++);	return x; }
+Matrix2x2 Matrix2x2Addf  (Matrix2x2 x, float y)     { for (int i = 0; i < 4; x.elm[i] = x.elm[i] + y, i++);	return x; }
+Matrix2x2 Matrix2x2Subf  (Matrix2x2 x, float y)     { for (int i = 0; i < 4; x.elm[i] = x.elm[i] - y, i++);	return x; }
+Matrix2x2 Matrix2x2Mulf  (Matrix2x2 x, float y)     { for (int i = 0; i < 4; x.elm[i] = x.elm[i] * y, i++);	return x; }
+Matrix2x2 Matrix2x2Divf  (Matrix2x2 x, float y)     { for (int i = 0; i < 4; x.elm[i] = x.elm[i] / y, i++);	return x; }
 
-Matrix3x3 Matrix3x3Add   (Matrix3x3 x, Matrix3x3 y) { for (int i = 0; i < 3; x.vec[i] = Vector3Add(x.vec[i], y.vec[i]), i++);	return x; }
-Matrix3x3 Matrix3x3Sub   (Matrix3x3 x, Matrix3x3 y) { for (int i = 0; i < 3; x.vec[i] = Vector3Sub(x.vec[i], y.vec[i]), i++);	return x; }
-Matrix3x3 Matrix3x3Addf  (Matrix3x3 x, float y)     { for (int i = 0; i < 3; x.vec[i] = Vector3Addf(x.vec[i], y), i++);	return x; }
-Matrix3x3 Matrix3x3Subf  (Matrix3x3 x, float y)     { for (int i = 0; i < 3; x.vec[i] = Vector3Subf(x.vec[i], y), i++);	return x; }
-Matrix3x3 Matrix3x3Mulf  (Matrix3x3 x, float y)     { for (int i = 0; i < 3; x.vec[i] = Vector3Mulf(x.vec[i], y), i++);	return x; }
-Matrix3x3 Matrix3x3Divf  (Matrix3x3 x, float y)     { for (int i = 0; i < 3; x.vec[i] = Vector3Divf(x.vec[i], y), i++);	return x; }
+Matrix3x3 Matrix3x3Add   (Matrix3x3 x, Matrix3x3 y) { for (int i = 0; i < 9; x.elm[i] = x.elm[i] + y.elm[i], i++);	return x; }
+Matrix3x3 Matrix3x3Sub   (Matrix3x3 x, Matrix3x3 y) { for (int i = 0; i < 9; x.elm[i] = x.elm[i] - y.elm[i], i++);	return x; }
+Matrix3x3 Matrix3x3Addf  (Matrix3x3 x, float y)     { for (int i = 0; i < 9; x.elm[i] = x.elm[i] + y, i++);	return x; }
+Matrix3x3 Matrix3x3Subf  (Matrix3x3 x, float y)     { for (int i = 0; i < 9; x.elm[i] = x.elm[i] - y, i++);	return x; }
+Matrix3x3 Matrix3x3Mulf  (Matrix3x3 x, float y)     { for (int i = 0; i < 9; x.elm[i] = x.elm[i] * y, i++);	return x; }
+Matrix3x3 Matrix3x3Divf  (Matrix3x3 x, float y)     { for (int i = 0; i < 9; x.elm[i] = x.elm[i] / y, i++);	return x; }
 
-Matrix4x4 Matrix4x4Add   (Matrix4x4 x, Matrix4x4 y) { for (int i = 0; i < 4; x.vec[i] = Vector4Add(x.vec[i], y.vec[i]), i++);	return x; }
-Matrix4x4 Matrix4x4Sub   (Matrix4x4 x, Matrix4x4 y) { for (int i = 0; i < 4; x.vec[i] = Vector4Sub(x.vec[i], y.vec[i]), i++);	return x; }
-Matrix4x4 Matrix4x4Addf  (Matrix4x4 x, float y)     { for (int i = 0; i < 4; x.vec[i] = Vector4Addf(x.vec[i], y), i++);	return x; }
-Matrix4x4 Matrix4x4Subf  (Matrix4x4 x, float y)     { for (int i = 0; i < 4; x.vec[i] = Vector4Subf(x.vec[i], y), i++);	return x; }
-Matrix4x4 Matrix4x4Mulf  (Matrix4x4 x, float y)     { for (int i = 0; i < 4; x.vec[i] = Vector4Mulf(x.vec[i], y), i++);	return x; }
-Matrix4x4 Matrix4x4Divf  (Matrix4x4 x, float y)     { for (int i = 0; i < 4; x.vec[i] = Vector4Divf(x.vec[i], y), i++);	return x; }
+Matrix4x4 Matrix4x4Add   (Matrix4x4 x, Matrix4x4 y) { for (int i = 0; i < 16; x.elm[i] = x.elm[i] + y.elm[i], i++);	return x; }
+Matrix4x4 Matrix4x4Sub   (Matrix4x4 x, Matrix4x4 y) { for (int i = 0; i < 16; x.elm[i] = x.elm[i] - y.elm[i], i++);	return x; }
+Matrix4x4 Matrix4x4Addf  (Matrix4x4 x, float y)     { for (int i = 0; i < 16; x.elm[i] = x.elm[i] + y, i++);	return x; }
+Matrix4x4 Matrix4x4Subf  (Matrix4x4 x, float y)     { for (int i = 0; i < 16; x.elm[i] = x.elm[i] - y, i++);	return x; }
+Matrix4x4 Matrix4x4Mulf  (Matrix4x4 x, float y)     { for (int i = 0; i < 16; x.elm[i] = x.elm[i] * y, i++);	return x; }
+Matrix4x4 Matrix4x4Divf  (Matrix4x4 x, float y)     { for (int i = 0; i < 16; x.elm[i] = x.elm[i] / y, i++);	return x; }
 
 
 

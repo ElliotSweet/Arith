@@ -7,6 +7,12 @@ extern "C" {
 
 #include <stdint.h>
 
+#define A_PI32 3.1415926535f
+#define A_PI64 3.141592653589793238462643383279
+
+#define A_TAU32 (A_PI32 * 2.0f)
+#define A_TAU64 (A_PI64 * 2.0)
+
 
 extern int32_t	iabs32(int32_t	x);
 extern int64_t	iabs64(int64_t	x);
@@ -78,11 +84,11 @@ extern inline float   Vector2Len  (Vector2 x);
 extern inline Vector2 Vector2Norm (Vector2 x);
 
 extern inline Vector3 Vector3Add  (Vector3 x, Vector3 y);
-extern inline Vector3 Vector3sub  (Vector3 x, Vector3 y);
+extern inline Vector3 Vector3Sub  (Vector3 x, Vector3 y);
 extern inline Vector3 Vector3Mul  (Vector3 x, Vector3 y);
 extern inline Vector3 Vector3Div  (Vector3 x, Vector3 y);
 extern inline Vector3 Vector3Addf (Vector3 x, float y);
-extern inline Vector3 Vector3subf (Vector3 x, float y);
+extern inline Vector3 Vector3Subf (Vector3 x, float y);
 extern inline Vector3 Vector3Mulf (Vector3 x, float y);
 extern inline Vector3 Vector3Divf (Vector3 x, float y);
 extern inline float	  Vector3Dot  (Vector3 x, Vector3 y);
@@ -91,11 +97,11 @@ extern inline float	  Vector3Len  (Vector3 x);
 extern inline Vector3 Vector3Norm (Vector3 x);
 
 extern inline Vector4 Vector4Add  (Vector4 v, Vector4 u);
-extern inline Vector4 Vector4sub  (Vector4 v, Vector4 u);
+extern inline Vector4 Vector4Sub  (Vector4 v, Vector4 u);
 extern inline Vector4 Vector4Mul  (Vector4 v, Vector4 u);
 extern inline Vector4 Vector4Div  (Vector4 v, Vector4 u);
 extern inline Vector4 Vector4Addf (Vector4 v, float f);
-extern inline Vector4 Vector4subf (Vector4 v, float f);
+extern inline Vector4 Vector4Subf (Vector4 v, float f);
 extern inline Vector4 Vector4Mulf (Vector4 v, float f);
 extern inline Vector4 Vector4Divf (Vector4 v, float f);
 extern inline float   Vector4Dot  (Vector4 v, Vector4 u);
@@ -147,23 +153,23 @@ extern Matrix3x3 Matrix3x3Translate (Vector3 v);
 extern Matrix4x4 Matrix4x4Translate (Vector4 v);
 
 extern Matrix2x2 Matrix2x2Add   (Matrix2x2 x, Matrix2x2 y);
-extern Matrix2x2 Matrix2x2sub   (Matrix2x2 x, Matrix2x2 y);
+extern Matrix2x2 Matrix2x2Sub   (Matrix2x2 x, Matrix2x2 y);
 extern Matrix2x2 Matrix2x2Addf  (Matrix2x2 x, float y);
-extern Matrix2x2 Matrix2x2subf  (Matrix2x2 x, float y);
+extern Matrix2x2 Matrix2x2Subf  (Matrix2x2 x, float y);
 extern Matrix2x2 Matrix2x2Mulf  (Matrix2x2 x, float y);
 extern Matrix2x2 Matrix2x2Divf  (Matrix2x2 x, float y);
 
 extern Matrix3x3 Matrix3x3Add   (Matrix3x3 x, Matrix3x3 y);
-extern Matrix3x3 Matrix3x3sub   (Matrix3x3 x, Matrix3x3 y);
+extern Matrix3x3 Matrix3x3Sub   (Matrix3x3 x, Matrix3x3 y);
 extern Matrix3x3 Matrix3x3Addf  (Matrix3x3 x, float y);
-extern Matrix3x3 Matrix3x3subf  (Matrix3x3 x, float y);
+extern Matrix3x3 Matrix3x3Subf  (Matrix3x3 x, float y);
 extern Matrix3x3 Matrix3x3Mulf  (Matrix3x3 x, float y);
 extern Matrix3x3 Matrix3x3Divf  (Matrix3x3 x, float y);
 
 extern Matrix4x4 Matrix4x4Add   (Matrix4x4 x, Matrix4x4 y);
-extern Matrix4x4 Matrix4x4sub   (Matrix4x4 x, Matrix4x4 y);
+extern Matrix4x4 Matrix4x4Sub   (Matrix4x4 x, Matrix4x4 y);
 extern Matrix4x4 Matrix4x4Addf  (Matrix4x4 x, float y);
-extern Matrix4x4 Matrix4x4subf  (Matrix4x4 x, float y);
+extern Matrix4x4 Matrix4x4Subf  (Matrix4x4 x, float y);
 extern Matrix4x4 Matrix4x4Mulf  (Matrix4x4 x, float y);
 extern Matrix4x4 Matrix4x4Divf  (Matrix4x4 x, float y);
 
