@@ -8,30 +8,37 @@ extern "C" {
 #include <stdint.h>
 
 #define A_PI32 3.1415926535f
-#define A_PI64 3.141592653589793238462643383279
+#define A_PI64  3.141592653589793238462643383279
+				
+#define A_TAU32 6.283185307f
+#define A_TAU64 6.283185307179586476925286766559
 
-#define A_TAU32 (A_PI32 * 2.0f)
-#define A_TAU64 (A_PI64 * 2.0)
+typedef float  real32_t;
+typedef double real64_t;
 
 
-extern int32_t	iabs32(int32_t	x);
-extern int64_t	iabs64(int64_t	x);
-extern float	fabs32(float	x);
-extern double	fabs64(double	x);
+extern uint8_t fCmp32(real32_t x, real32_t y);
+extern uint8_t fCmp64(real64_t x, real64_t y);
 
-extern int32_t	imedian32(int32_t 	x, int32_t 	y);
-extern int64_t	imedian64(int64_t 	x, int64_t 	y);
-extern float	fmedian32(float  	x, float  	y);
-extern double	fmedian64(double 	x, double 	y);
+real32_t Floor32(real32_t x);
+real64_t Floor64(real64_t x);
+real32_t Ceil32 (real32_t x);
+real64_t Ceil64 (real64_t x);
 
-extern int		fcmp32(float  x, float  y);
-extern int		fcmp64(double x, double y);
+extern int32_t	iAbs32(int32_t	x);
+extern int64_t	iAbs64(int64_t	x);
+extern real32_t	fAbs32(real32_t	x);
+extern real64_t	fAbs64(real64_t	x);
 
-// reciprocal of the square root, or 1/sqrt
-extern float	frsqrt32	(float x);
-extern double	frsqrt64	(double x);
-extern float	fsqrt32		(float x);
-extern double	fsqrt64		(double x);
+extern int32_t	iMedian32(int32_t x, int32_t y);
+extern int64_t	iMedian64(int64_t x, int64_t y);
+extern real32_t	fMedian32(real32_t x, real32_t y);
+extern real64_t	fMedian64(real64_t x, real64_t y);
+
+extern real32_t	fSqrt32  (real32_t x);
+extern real64_t	fSqrt64  (real64_t x);
+extern real32_t	frSqrt32 (real32_t x); // reciprocal of the square root, or 1/sqrt
+extern real64_t	frSqrt64 (real64_t x); // reciprocal of the square root, or 1/sqrt
 
 //////////////////////////////////////////////////////////
 //

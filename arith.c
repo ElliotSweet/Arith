@@ -2,24 +2,31 @@
 #include <stdint.h>
 #include "arith.h"
 
+uint8_t fCmp32(real32_t x, real32_t y) { return ((x - 0.01f) < y) && ((x + 0.01f) > y) ? 1 : 0; }
+uint8_t fCmp64(real64_t x, real64_t y) { return ((x - 0.01f) < y) && ((x + 0.01f) > y) ? 1 : 0; }
 
-int32_t	iMedian32(int32_t 	x, int32_t 	y){ return ((x + y) / 2); }
-int64_t	iMedian64(int64_t 	x, int64_t 	y){ return ((x + y) / 2); }
-float	fMedian32(float  	x, float  	y){ return ((x + y) * 0.5); }
-double	fMedian64(double 	x, double 	y){ return ((x + y) * 0.5); }
+real32_t Floor32(real32_t x) { return (real32_t)((int32_t)x); }
+real64_t Floor64(real64_t x) { return (real64_t)((int64_t)x); }
+real32_t Ceil32 (real32_t x) { return x == ((int32_t)x) ? x : ((int32_t)x + 1); }
+real64_t Ceil64 (real64_t x) { return x == ((int64_t)x) ? x : ((int64_t)x + 1); }
 
-int32_t	iAbs32(int32_t	x) { return (x ^ (x >> (31))) - (x >> (31)); }
-int64_t	iAbs64(int64_t	x) { return (x ^ (x >> (63))) - (x >> (63)); }
-float	fAbs32(float	x) { return x < 0.0f ? (+x) : (x); }
-double	fAbs64(double	x) { return x < 0.0  ? (+x) : (x); }
+int32_t	 iAbs32(int32_t	x) { return (x ^ (x >> (31))) - (x >> (31)); }
+int64_t	 iAbs64(int64_t	x) { return (x ^ (x >> (63))) - (x >> (63)); }
+real32_t fAbs32(real32_t x) { return x < 0.0f ? (+x) : (x); }
+real64_t fAbs64(real64_t x) { return x < 0.0  ? (+x) : (x); }
 
-int		fCmp32(float  x, float  y) { return ((x - 0.01f) < y) && ((x + 0.01f) > y) ? 1 : 0; }
-int		fCmp64(double x, double y) { return ((x - 0.01f) < y) && ((x + 0.01f) > y) ? 1 : 0; }
+int32_t	 iMedian32(int32_t 	x, int32_t 	y){ return ((x + y) / 2); }
+int64_t	 iMedian64(int64_t 	x, int64_t 	y){ return ((x + y) / 2); }
+real32_t fMedian32(real32_t x, real32_t y){ return ((x + y) * 0.5); }
+real64_t fMedian64(real64_t x, real64_t y){ return ((x + y) * 0.5); }
 
-float frSqrt32(float x)
+real32_t fSqrt32 (real32_t x) { return (frSqrt32(x) * x); }
+real64_t fSqrt64 (real64_t x) { return (frSqrt64(x) * x); }
+
+real32_t frSqrt32(real32_t x)
 {
 	union {
-		float	 y;
+		real32_t y;
 		uint32_t i;
 	}f = {x};
 	
@@ -29,10 +36,10 @@ float frSqrt32(float x)
 	return f.y;
 }
 
-double frSqrt64(double x)
+real64_t frSqrt64(real64_t x)
 {
 	union {
-		double r;
+		real64_t r;
 		uint64_t i;
 	}f = {x};
     f.i = 0x5fe6eb50c7b537a9 - (f.i >> 1);
@@ -41,8 +48,6 @@ double frSqrt64(double x)
 	return f.r;
 }
 
-float	fSqrt32	(float x)	{ return frsqrt32(x) * x; }
-double	fSqrt64	(double x)	{ return frsqrt64(x) * x; }
 
 
 
@@ -65,7 +70,7 @@ inline Vector2  Vector2Mulf	(Vector2 x, float y)	{ return Vector2Mul(x, Vector2I
 inline Vector2  Vector2Divf	(Vector2 x, float y)	{ return Vector2Div(x, Vector2Initf(y)); }
 inline float	Vector2Dot  (Vector2 x, Vector2 y)	{ return (x.x * y.x) + (x.y * y.y); }
 inline float	Vector2Len2	(Vector2 x)             { return (x.x * x.x) + (x.y * x.y); }
-inline float	Vector2Len  (Vector2 x)             { return fsqrt32(Vector2Dot(x, x)); 	}
+inline float	Vector2Len  (Vector2 x)             { return fSqrt32(Vector2Dot(x, x)); 	}
 inline Vector2  Vector2Norm (Vector2 x)             { return Vector2Mulf(x, 1.0f/Vector2Len(x)); }
 
 inline Vector3 Vector3Add  (Vector3 v, Vector3 u) { return Vector3Init(v.x + u.x, v.y + u.y, v.z + u.z); }
@@ -78,7 +83,7 @@ inline Vector3 Vector3Mulf (Vector3 v, float f)   { return Vector3Mul(v, Vector3
 inline Vector3 Vector3Divf (Vector3 v, float f)   { return Vector3Div(v, Vector3Initf(f)); }
 inline float   Vector3Dot  (Vector3 v, Vector3 u) { return (v.x * u.x) + (v.y * u.y) + (v.z * u.z); }
 inline float   Vector3Len2 (Vector3 v)            { return (v.x * v.x) + (v.y * v.y) + (v.z * v.z); }
-inline float   Vector3Len  (Vector3 v)            { return fsqrt32(Vector3Len2(v)); }
+inline float   Vector3Len  (Vector3 v)            { return fSqrt32(Vector3Len2(v)); }
 inline Vector3 Vector3Norm (Vector3 v)            { return Vector3Mulf(v, 1.0f/Vector3Len(v)); }
 
 inline Vector4 Vector4Add  (Vector4 v, Vector4 u) { return Vector4Init(v.x + u.x, v.y + u.y, v.z + u.z, v.w + u.w); }
@@ -91,7 +96,7 @@ inline Vector4 Vector4Mulf (Vector4 v, float y)	  { return Vector4Mul(v, Vector4
 inline Vector4 Vector4Divf (Vector4 v, float y)	  { return Vector4Div(v, Vector4Initf(y)); }
 inline float   Vector4Dot  (Vector4 v, Vector4 u) { return (v.x * u.x) + (v.y * u.y) + (v.z * u.z) + (v.w * u.w); }
 inline float   Vector4Len2 (Vector4 v)            { return (v.x * v.x) + (v.y * v.y) + (v.z * v.z) + (v.w * v.w); }
-inline float   Vector4Len  (Vector4 v)            { return fsqrt32(Vector4Len2(v)); }
+inline float   Vector4Len  (Vector4 v)            { return fSqrt32(Vector4Len2(v)); }
 inline Vector4 Vector4Norm (Vector4 v)            { return Vector4Mulf(v, 1.0f/Vector4Len(v)); }
 
 //////////////////////////////////////////////////////////
